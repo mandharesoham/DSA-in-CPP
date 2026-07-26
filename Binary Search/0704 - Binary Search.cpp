@@ -27,10 +27,10 @@ public:
             int mid = st + (end - st) / 2;
             if (nums[mid] == target)
                 return mid;
-            else if (nums[mid] <= target) {
-                return bs(nums, target, st = mid + 1, end);
+            else if (nums[mid] < target) {
+                return bs(nums, target, mid + 1, end);
             } else {
-                return bs(nums, target, st, end = mid - 1);
+                return bs(nums, target, st,mid - 1);
             }
         }
         return -1;
