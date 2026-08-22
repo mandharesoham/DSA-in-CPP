@@ -1,0 +1,45 @@
+/*# LeetCode 496 - Next Greater Element I
+
+## Problem
+Find the next greater element for each element of `nums1` in `nums2`.
+
+ ## Approach
+- Traverse `nums2` from right to left.
+- Use a stack to keep track of possible greater elements.
+- Store each element's next greater element in an unordered map.
+- Traverse `nums1` and get the answer from the map.
+
+## Complexity
+- Time: O(n + m)
+- Space: O(n)
+
+## Concepts
+- Stack
+- Hash Map
+- Monotonic Stack
+*/
+
+class Solution {
+public:
+    vector<int> nextGreaterElement(vector<int>& nums1, vector<int>& nums2) {
+        unordered_map<int, int> m; // nums2[i] , NextGreater
+        stack<int> st;
+        for (int i = nums2.size() - 1; i >= 0; i--) {
+            while (st.size() > 0 && st.top() <= nums2[i]) {
+                st.pop();
+            }
+            if (st.empty()) {
+                m[nums2[i]] = -1;
+            } else {
+                m[nums2[i]] = st.top();
+            }
+            st.push(nums2[i]);
+        }
+        vector<int> ans;
+        for (int i = 0; i < nums1.size(); i++) {
+
+             ans.push_back(m[nums1[i]]);
+        }
+        return ans;
+    }
+};
